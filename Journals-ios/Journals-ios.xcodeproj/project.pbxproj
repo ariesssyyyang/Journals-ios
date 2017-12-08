@@ -18,6 +18,11 @@
 		7F65BEBC1FDA3CDC008B1031 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEBB1FDA3CDC008B1031 /* TitleView.swift */; };
 		7F65BEBE1FDA42EB008B1031 /* UINibExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEBD1FDA42EB008B1031 /* UINibExtensions.swift */; };
 		7F65BEC01FDA4314008B1031 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEBF1FDA4314008B1031 /* UIViewExtensions.swift */; };
+		7F65BEC31FDA46B0008B1031 /* JournalsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEC11FDA46B0008B1031 /* JournalsCell.swift */; };
+		7F65BEC41FDA46B0008B1031 /* JournalsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F65BEC21FDA46B0008B1031 /* JournalsCell.xib */; };
+		7F65BEC81FDA4ECD008B1031 /* JournalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEC71FDA4ECD008B1031 /* JournalCell.swift */; };
+		7F65BECA1FDA529B008B1031 /* CreatingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F65BEC91FDA529B008B1031 /* CreatingController.swift */; };
+		7F65BECC1FDA53D6008B1031 /* Creating.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F65BECB1FDA53D6008B1031 /* Creating.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,11 @@
 		7F65BEBB1FDA3CDC008B1031 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		7F65BEBD1FDA42EB008B1031 /* UINibExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINibExtensions.swift; sourceTree = "<group>"; };
 		7F65BEBF1FDA4314008B1031 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		7F65BEC11FDA46B0008B1031 /* JournalsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalsCell.swift; sourceTree = "<group>"; };
+		7F65BEC21FDA46B0008B1031 /* JournalsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JournalsCell.xib; sourceTree = "<group>"; };
+		7F65BEC71FDA4ECD008B1031 /* JournalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalCell.swift; sourceTree = "<group>"; };
+		7F65BEC91FDA529B008B1031 /* CreatingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingController.swift; sourceTree = "<group>"; };
+		7F65BECB1FDA53D6008B1031 /* Creating.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Creating.storyboard; sourceTree = "<group>"; };
 		A823CBFB51CD717EFD5660B8 /* Pods_Journals_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Journals_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA9165135599AF6DC170EA40 /* Pods-Journals-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Journals-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-Journals-ios/Pods-Journals-ios.release.xcconfig"; sourceTree = "<group>"; };
 		DA977454C216E70972B7C866 /* Pods-Journals-ios.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Journals-ios.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Journals-ios/Pods-Journals-ios.debug.xcconfig"; sourceTree = "<group>"; };
@@ -73,15 +83,20 @@
 			children = (
 				7F65BEA41FDA2A49008B1031 /* AppDelegate.swift */,
 				7F65BEA61FDA2A49008B1031 /* JournalsListController.swift */,
+				7F65BEC91FDA529B008B1031 /* CreatingController.swift */,
+				7F65BEC71FDA4ECD008B1031 /* JournalCell.swift */,
 				7F65BEB91FDA3A21008B1031 /* TitleView.xib */,
 				7F65BEBB1FDA3CDC008B1031 /* TitleView.swift */,
 				7F65BEA81FDA2A49008B1031 /* Main.storyboard */,
+				7F65BECB1FDA53D6008B1031 /* Creating.storyboard */,
 				7F65BEAB1FDA2A49008B1031 /* Assets.xcassets */,
 				7F65BEAD1FDA2A49008B1031 /* LaunchScreen.storyboard */,
 				7F65BEB01FDA2A49008B1031 /* Info.plist */,
 				7F65BEB71FDA34CB008B1031 /* GoogleService-Info.plist */,
 				7F65BEBD1FDA42EB008B1031 /* UINibExtensions.swift */,
 				7F65BEBF1FDA4314008B1031 /* UIViewExtensions.swift */,
+				7F65BEC11FDA46B0008B1031 /* JournalsCell.swift */,
+				7F65BEC21FDA46B0008B1031 /* JournalsCell.xib */,
 			);
 			path = "Journals-ios";
 			sourceTree = "<group>";
@@ -167,8 +182,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F65BEAF1FDA2A49008B1031 /* LaunchScreen.storyboard in Resources */,
+				7F65BEC41FDA46B0008B1031 /* JournalsCell.xib in Resources */,
 				7F65BEB81FDA34CB008B1031 /* GoogleService-Info.plist in Resources */,
 				7F65BEAC1FDA2A49008B1031 /* Assets.xcassets in Resources */,
+				7F65BECC1FDA53D6008B1031 /* Creating.storyboard in Resources */,
 				7F65BEBA1FDA3A21008B1031 /* TitleView.xib in Resources */,
 				7F65BEAA1FDA2A49008B1031 /* Main.storyboard in Resources */,
 			);
@@ -259,7 +276,10 @@
 				7F65BEA71FDA2A49008B1031 /* JournalsListController.swift in Sources */,
 				7F65BEC01FDA4314008B1031 /* UIViewExtensions.swift in Sources */,
 				7F65BEA51FDA2A49008B1031 /* AppDelegate.swift in Sources */,
+				7F65BEC31FDA46B0008B1031 /* JournalsCell.swift in Sources */,
+				7F65BECA1FDA529B008B1031 /* CreatingController.swift in Sources */,
 				7F65BEBC1FDA3CDC008B1031 /* TitleView.swift in Sources */,
+				7F65BEC81FDA4ECD008B1031 /* JournalCell.swift in Sources */,
 				7F65BEBE1FDA42EB008B1031 /* UINibExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
