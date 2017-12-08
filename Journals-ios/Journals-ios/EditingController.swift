@@ -121,7 +121,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             showPickedImageView.contentMode = .scaleAspectFill
             showPickedImageView.image = pickedImage
-   
+
             // Todo: clear the button placeholder image
         }
         dismiss(animated: true, completion: nil)

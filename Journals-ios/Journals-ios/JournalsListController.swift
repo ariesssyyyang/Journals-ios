@@ -101,6 +101,7 @@ class JournalsListController: UITableViewController {
         guard let editingController = storyboard.instantiateViewController(withIdentifier: "editingJournal") as? EditingController else { return }
         editingController.originTitle = jounals[indexPath.row].title
         editingController.originContent = jounals[indexPath.row].content
+        editingController.journalId = jounals[indexPath.row].id
         present(editingController, animated: true, completion: nil)
     }
 

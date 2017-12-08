@@ -29,7 +29,6 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Yyt-fy-75q" secondAttribute="height" multiplier="1:1" id="wma-yQ-lxj"/>
                                 </constraints>
-                                <state key="normal" image="icon_photo"/>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lo6-Wa-FBa">
                                 <rect key="frame" x="0.0" y="375" width="375" height="292"/>
@@ -117,6 +116,5 @@
     </scenes>
     <resources>
         <image name="button_close" width="44" height="44"/>
-        <image name="icon_photo" width="44" height="44"/>
     </resources>
 </document>
