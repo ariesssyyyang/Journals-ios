@@ -18,8 +18,8 @@ class JournalsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         titleLabel.text = "hi"
-        titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "SFUIText", size: 12)
+        titleLabel.textColor = UIColor(red: 67.0/255, green: 87.0/255, blue: 97.0/255, alpha: 1.0)
+        titleLabel.font = UIFont(name: "SFUIText", size: 14)
         setupSeparator()
 
     }

@@ -90,11 +90,20 @@ class JournalsListController: UITableViewController {
             journalRef.removeValue()
 
             self.jounals.remove(at: indexPath.row)
-            
+
             tableView.deleteRows(at: [indexPath], with: .fade)
 
         }
     }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Editing", bundle: nil)
+        guard let editingController = storyboard.instantiateViewController(withIdentifier: "editingJournal") as? EditingController else { return }
+        editingController.originTitle = jounals[indexPath.row].title
+        editingController.originContent = jounals[indexPath.row].content
+        present(editingController, animated: true, completion: nil)
+    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 212
     }
