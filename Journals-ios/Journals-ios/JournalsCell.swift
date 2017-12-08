@@ -28,6 +28,7 @@ class JournalsCell: UITableViewCell {
         let separatorColor = UIColor(red: 171.0/255.0, green: 179.0/255.0, blue: 176.0/255.0, alpha: 1.0)
         separatorView.backgroundColor = separatorColor
         circleView.layer.cornerRadius = circleView.frame.width / 2
+        circleView.layer.borderWidth = 0.5
         circleView.layer.borderColor = separatorColor.cgColor
     }
 
