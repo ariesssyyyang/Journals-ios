@@ -48,7 +48,7 @@ class JournalsListController: UITableViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
-            
+
         }, withCancel: nil)
     }
 
@@ -75,7 +75,7 @@ class JournalsListController: UITableViewController {
         if let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? JournalsCell {
             let journal = jounals[indexPath.row]
             cell.titleLabel.text = journal.title
-            
+
             return cell
         } else {
             return UITableViewCell()
@@ -84,12 +84,15 @@ class JournalsListController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
+
             let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
             let journalRef = ref.child("journals").child(self.jounals[indexPath.row].id)
             journalRef.removeValue()
-//            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            self.jounals.remove(at: indexPath.row)
             
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
         }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
