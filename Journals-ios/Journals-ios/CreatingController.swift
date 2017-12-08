@@ -34,6 +34,7 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
         setupTitleTextField()
         setupContentTextField()
         setupSaveButton()
+        setupImageView()
 
         cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
 
@@ -56,13 +57,21 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
         saveButton.layer.cornerRadius = 22.0
         saveButton.titleLabel?.font = UIFont(name: "SFUIText", size: 20)
     }
+
+    func setupImageView() {
+        showPickedImageView.contentMode = .center
+        showPickedImageView.backgroundColor = UIColor(red: 67.0/255, green: 87.0/255, blue: 97.0/255, alpha: 1.0)
+        showPickedImageView.image = #imageLiteral(resourceName: "icon_photo").withRenderingMode(.alwaysTemplate)
+        showPickedImageView.tintColor = UIColor.white
+    }
+
     @objc func handleSave() {
         uploadJournal()
         dismissThisPage()
     }
 
     func uploadJournal() {
-        let storageRef = Storage.storage().reference().child("image")
+        let storageRef = Storage.storage().reference().child("image").child(titleTextField.text!)
         if let uploadData = UIImagePNGRepresentation(self.showPickedImageView.image!) {
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {

@@ -37,10 +37,11 @@ class JournalsCell: UITableViewCell {
     }
 
     func setupImageView() {
-        journalImageView.contentMode = .scaleToFill
+        journalImageView.contentMode = .scaleAspectFill
+        journalImageView.layer.masksToBounds = true
         journalImageView.layer.cornerRadius = 8.0
         journalImageView.layer.shadowColor = UIColor(red: 171.0/255, green: 179.0/255, blue: 176.0/255, alpha: 1.0).cgColor
-        journalImageView.layer.shadowRadius = 10.0
-        journalImageView.layer.masksToBounds = true
+        journalImageView.layer.shadowOpacity = 10.0
+        journalImageView.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
 }

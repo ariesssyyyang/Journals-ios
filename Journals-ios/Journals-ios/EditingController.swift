@@ -40,6 +40,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
         setupTitleTextField()
         setupContentTextField()
         setupUpdateButton()
+        setupImageView()
 
         cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
 
@@ -65,19 +66,25 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
         updateButton.titleLabel?.font = UIFont(name: "SFUIText", size: 20)
     }
 
+    func setupImageView() {
+        showPickedImageView.contentMode = .scaleAspectFill
+        guard let url = originImageUrl else { return }
+        if let imageURL = URL(string: url) {
+            DispatchQueue.global().async {
+                do {
+                    let downloadImage = UIImage(data: try Data(contentsOf: imageURL))
+                    DispatchQueue.main.async {
+                        self.showPickedImageView.image = downloadImage
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+
     @objc func handleUpdate() {
         uploadJournal()
-//        if
-//            let title = self.titleTextField.text,
-//            let content = self.contentTextField.text,
-//            let id = self.journalId {
-//
-//            let values = ["title": title, "content": content]
-//            let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
-//            let journalRef = ref.child("journals").child(id)
-//            print(values)
-//            journalRef.updateChildValues(values)
-//        }
         dismissThisPage()
     }
 
@@ -102,10 +109,11 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
 
     func sendDataToDatabase(values: [String: String]) {
+        guard let id = journalId else { return }
         let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
-        let journalRef = ref.child("journals").childByAutoId()
+        let journalRef = ref.child("journals").child(id)
         print(values)
-        journalRef.setValue(values)
+        journalRef.updateChildValues(values)
     }
 
     @objc func handleCancel() {

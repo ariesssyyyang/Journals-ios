@@ -76,7 +76,7 @@ class JournalsListController: UITableViewController {
         if let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? JournalsCell {
             let journal = jounals[indexPath.row]
 
-            let url = "https://firebasestorage.googleapis.com/v0/b/journals-ios.appspot.com/o/image?alt=media&token=151a54f8-f517-4556-ad34-7ed4a3a99680"
+            let url = journal.imageUrl
             if let imageURL = URL(string: url) {
                 DispatchQueue.global().async {
                     do {
