@@ -14,10 +14,5 @@ struct Journal {
     var title: String = ""
     var content: String = ""
     var imageUrl: String = ""
-//    init(id: String, title: String, content: String, imageUrl: String?) {
-//        self.id = id
-//        self.title = title
-//        self.content = content
-//        self.imageUrl = imageUrl
-//    }
+
 }

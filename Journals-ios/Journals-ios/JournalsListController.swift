@@ -41,8 +41,9 @@ class JournalsListController: UITableViewController {
             print(id)
             guard let dictionary = snapshot.value as? [String: AnyObject],
             let title = dictionary["title"] as? String,
-            let content = dictionary["content"] as? String else { return }
-            let journal = Journal(id: id, title: title, content: content, imageUrl: "")
+            let content = dictionary["content"] as? String,
+            let url = dictionary["imageUrl"] as? String else { return }
+            let journal = Journal(id: id, title: title, content: content, imageUrl: url)
             self.jounals.insert(journal, at: 0)
 
             DispatchQueue.main.async {
@@ -74,6 +75,21 @@ class JournalsListController: UITableViewController {
 
         if let cell =  tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? JournalsCell {
             let journal = jounals[indexPath.row]
+
+            let url = "https://firebasestorage.googleapis.com/v0/b/journals-ios.appspot.com/o/image?alt=media&token=151a54f8-f517-4556-ad34-7ed4a3a99680"
+            if let imageURL = URL(string: url) {
+                DispatchQueue.global().async {
+                    do {
+                        let downloadImage = UIImage(data: try Data(contentsOf: imageURL))
+                        DispatchQueue.main.async {
+                            cell.journalImageView.image = downloadImage
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+
             cell.titleLabel.text = journal.title
 
             return cell
@@ -99,9 +115,11 @@ class JournalsListController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Editing", bundle: nil)
         guard let editingController = storyboard.instantiateViewController(withIdentifier: "editingJournal") as? EditingController else { return }
-        editingController.originTitle = jounals[indexPath.row].title
-        editingController.originContent = jounals[indexPath.row].content
-        editingController.journalId = jounals[indexPath.row].id
+        let journal = jounals[indexPath.row]
+        editingController.originTitle = journal.title
+        editingController.originContent = journal.content
+        editingController.originImageUrl = journal.imageUrl
+        editingController.journalId = journal.id
         present(editingController, animated: true, completion: nil)
     }
 

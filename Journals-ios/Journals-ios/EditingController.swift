@@ -28,6 +28,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
     var journalId: String?
     var originTitle: String?
     var originContent: String?
+    var originImageUrl: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,18 +66,18 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
     }
 
     @objc func handleUpdate() {
-        //        uploadJournal()
-        if
-            let title = self.titleTextField.text,
-            let content = self.contentTextField.text,
-            let id = self.journalId {
-
-            let values = ["title": title, "content": content]
-            let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
-            let journalRef = ref.child("journals").child(id)
-            print(values)
-            journalRef.updateChildValues(values)
-        }
+        uploadJournal()
+//        if
+//            let title = self.titleTextField.text,
+//            let content = self.contentTextField.text,
+//            let id = self.journalId {
+//
+//            let values = ["title": title, "content": content]
+//            let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
+//            let journalRef = ref.child("journals").child(id)
+//            print(values)
+//            journalRef.updateChildValues(values)
+//        }
         dismissThisPage()
     }
 
@@ -93,7 +94,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
                     let title = self.titleTextField.text,
                     let content = self.contentTextField.text {
 
-                    let values = ["title": title, "content": content]//, "imageUrl": imageUrl]
+                    let values = ["title": title, "content": content, "imageUrl": imageUrl]
                     self.sendDataToDatabase(values: values)
                 }
             })

@@ -17,9 +17,8 @@ class JournalsCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        titleLabel.text = "hi"
-        titleLabel.textColor = UIColor(red: 67.0/255, green: 87.0/255, blue: 97.0/255, alpha: 1.0)
-        titleLabel.font = UIFont(name: "SFUIText", size: 14)
+
+        setupTitleLabel()
         setupSeparator()
 
     }
@@ -32,4 +31,16 @@ class JournalsCell: UITableViewCell {
         circleView.layer.borderColor = separatorColor.cgColor
     }
 
+    func setupTitleLabel() {
+        titleLabel.textColor = UIColor(red: 67.0/255, green: 87.0/255, blue: 97.0/255, alpha: 1.0)
+        titleLabel.font = UIFont(name: "SFUIText", size: 14)
+    }
+
+    func setupImageView() {
+        journalImageView.contentMode = .scaleToFill
+        journalImageView.layer.cornerRadius = 8.0
+        journalImageView.layer.shadowColor = UIColor(red: 171.0/255, green: 179.0/255, blue: 176.0/255, alpha: 1.0).cgColor
+        journalImageView.layer.shadowRadius = 10.0
+        journalImageView.layer.masksToBounds = true
+    }
 }

@@ -11,7 +11,7 @@ import Firebase
 
 class CreatingController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var showPickedImageView: UIImageView!
-    
+
     @IBOutlet weak var cancelButton: UIButton!
 
     @IBOutlet weak var imagePickerButton: UIButton!
@@ -57,17 +57,7 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
         saveButton.titleLabel?.font = UIFont(name: "SFUIText", size: 20)
     }
     @objc func handleSave() {
-//        uploadJournal()
-        if
-            let title = self.titleTextField.text,
-            let content = self.contentTextField.text {
-
-            let values = ["title": title, "content": content]
-            let ref = Database.database().reference(fromURL: "https://journals-ios.firebaseio.com/")
-            let journalRef = ref.child("journals").childByAutoId()
-            print(values)
-            journalRef.setValue(values)
-        }
+        uploadJournal()
         dismissThisPage()
     }
 
@@ -84,7 +74,7 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
                     let title = self.titleTextField.text,
                     let content = self.contentTextField.text {
 
-                    let values = ["title": title, "content": content]//, "imageUrl": imageUrl]
+                    let values = ["title": title, "content": content, "imageUrl": imageUrl]
                     self.sendDataToDatabase(values: values)
                 }
             })
