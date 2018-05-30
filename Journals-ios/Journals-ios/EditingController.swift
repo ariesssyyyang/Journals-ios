@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Nuke
 
 class EditingController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -71,14 +72,8 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
         guard let url = originImageUrl else { return }
         if let imageURL = URL(string: url) {
             DispatchQueue.global().async {
-                do {
-                    let downloadImage = UIImage(data: try Data(contentsOf: imageURL))
-                    DispatchQueue.main.async {
-                        self.showPickedImageView.image = downloadImage
-                    }
-                } catch {
-                    print(error.localizedDescription)
-                }
+                self.showPickedImageView.image = nil
+                Nuke.loadImage(with: imageURL, into: self.showPickedImageView)
             }
         }
     }
@@ -90,7 +85,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
 
     func uploadJournal() {
         let storageRef = Storage.storage().reference().child("image")
-        if let uploadData = UIImagePNGRepresentation(self.showPickedImageView.image!) {
+        if let pickedImage = self.showPickedImageView.image, let uploadData = UIImageJPEGRepresentation(pickedImage, 0.3) {
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
                     print("error")
@@ -126,7 +121,7 @@ class EditingController: UIViewController, UIImagePickerControllerDelegate, UINa
         present(imagePicker, animated: true, completion: nil)
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             showPickedImageView.contentMode = .scaleAspectFill
             showPickedImageView.image = pickedImage

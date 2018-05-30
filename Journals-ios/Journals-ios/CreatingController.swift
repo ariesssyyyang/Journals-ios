@@ -73,7 +73,8 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
     func uploadJournal() {
 
         let storageRef = Storage.storage().reference().child("image").child(titleTextField.text!)
-        if let uploadData = UIImagePNGRepresentation(self.showPickedImageView.image!) {
+        if let pickedImage = self.showPickedImageView.image,
+            let uploadData = UIImageJPEGRepresentation(pickedImage, 0.3) {
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
                     print("error")
@@ -108,7 +109,7 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
         present(imagePicker, animated: true, completion: nil)
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String :Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             showPickedImageView.contentMode = .scaleAspectFill
             showPickedImageView.image = pickedImage

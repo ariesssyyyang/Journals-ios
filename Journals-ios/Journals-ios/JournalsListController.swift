@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import Nuke
 
 class JournalsListController: UITableViewController {
 
@@ -28,6 +29,7 @@ class JournalsListController: UITableViewController {
         observeJournals()
 
         view.backgroundColor = UIColor.white
+        tableView.separatorStyle = .none
         setupTitleView()
         let nib = UINib(nibName: "JournalsCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cellId)
@@ -78,15 +80,10 @@ class JournalsListController: UITableViewController {
 
             let url = journal.imageUrl
             if let imageURL = URL(string: url) {
-                DispatchQueue.global().async {
-                    do {
-                        let downloadImage = UIImage(data: try Data(contentsOf: imageURL))
-                        DispatchQueue.main.async {
-                            cell.journalImageView.image = downloadImage
-                        }
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                DispatchQueue.main.async {
+                    cell.journalImageView.image = nil
+                    Nuke.loadImage(with: imageURL, into: cell.journalImageView)
+                    cell.journalImageView.contentMode = .scaleAspectFill
                 }
             }
 
