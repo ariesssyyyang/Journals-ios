@@ -71,6 +71,7 @@ class CreatingController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
 
     func uploadJournal() {
+
         let storageRef = Storage.storage().reference().child("image").child(titleTextField.text!)
         if let uploadData = UIImagePNGRepresentation(self.showPickedImageView.image!) {
             storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in

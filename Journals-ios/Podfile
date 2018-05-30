@@ -11,4 +11,5 @@ target 'Journals-ios' do
   pod 'Firebase/Core'
   pod 'Firebase/Storage'
   pod 'ImagePicker'
+  pod 'Nuke', '~> 5.2'
 end
