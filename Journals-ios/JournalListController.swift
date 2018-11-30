@@ -13,7 +13,7 @@ class JournalListController: UIViewController {
 
     let fakeNavBar: UIView = {
         let view = UIView()
-        view.backgroundColor = .green
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -32,10 +32,20 @@ class JournalListController: UIViewController {
         return label
     }()
 
-    override func viewDidLoad() {
-        self.view.backgroundColor = .orange
+    let postTableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), style: .plain)
+        tableView.register(JournalCell.self, forCellReuseIdentifier: "journalCell")
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    } ()
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .white
         setupLayoutConstraint()
+        prepareForTableView()
     }
 
     func setupLayoutConstraint() {
@@ -44,6 +54,12 @@ class JournalListController: UIViewController {
         fakeNavBar.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         fakeNavBar.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         fakeNavBar.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: 1/5)
+
+        view.addSubview(postTableView)
+        postTableView.topAnchor.constraint(equalTo: fakeNavBar.bottomAnchor).isActive = true
+        postTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        postTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        postTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 
         fakeNavBar.addSubview(newPostButton)
         newPostButton.rightAnchor.constraint(equalTo: fakeNavBar.rightAnchor, constant: -10).isActive = true
@@ -56,5 +72,30 @@ class JournalListController: UIViewController {
         topViewLabel.topAnchor.constraint(equalTo: fakeNavBar.topAnchor, constant: 5).isActive = true
         topViewLabel.bottomAnchor.constraint(equalTo: fakeNavBar.bottomAnchor, constant: -5).isActive = true
         topViewLabel.rightAnchor.constraint(equalTo: newPostButton.leftAnchor).isActive = true
+    }
+}
+
+extension JournalListController: UITableViewDelegate, UITableViewDataSource {
+
+    func prepareForTableView() {
+        postTableView.delegate = self
+        postTableView.dataSource = self
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "journalCell") as? JournalCell else {
+            return UITableViewCell()
+        }
+        cell.selectionStyle = .none
+        cell.setupViews()
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
     }
 }
