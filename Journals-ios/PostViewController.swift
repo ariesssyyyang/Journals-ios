@@ -16,8 +16,18 @@ enum PostMode {
 
 class PostViewController: UIViewController {
 
-    var mode: PostMode = PostMode.new
+    let mode: PostMode
 
+    required init?(coder aDecoder: NSCoder) {
+        self.mode = .new
+        super.init(coder: aDecoder)
+    }
+
+    init(mode: PostMode) {
+        self.mode = mode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     let submitButton: UIButton = {
         let button = UIButton()
         
@@ -100,7 +110,7 @@ class PostViewController: UIViewController {
         switch mode {
         case .edit:
             submitButton.setTitle("Update", for: .normal)
-        default:
+        case .new:
             submitButton.setTitle("Send", for: .normal)
         }
     }
