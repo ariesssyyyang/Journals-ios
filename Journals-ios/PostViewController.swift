@@ -71,6 +71,7 @@ class PostViewController: UIViewController {
         view.backgroundColor = .white
         setupLayout()
         setupButtonText()
+        setupImageViewEvent()
     }
 
     func setupLayout() {
@@ -114,4 +115,38 @@ class PostViewController: UIViewController {
             submitButton.setTitle("Send", for: .normal)
         }
     }
+
+    func setupImageViewEvent() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:)))
+        pickPhotoImageView.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc func imageTapped(_ tapGestureRecognizer: UITapGestureRecognizer) {
+        let imagePicker = UIImagePickerController()
+        prepareForImagePicker(imagePicker: imagePicker)
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension PostViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func prepareForImagePicker(imagePicker: UIImagePickerController) {
+        imagePicker.delegate = self
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[.originalImage] as? UIImage else { return }
+        pickPhotoImageView.image = selectedImage
+        pickPhotoImageView.contentMode = .scaleAspectFill
+        pickPhotoImageView.clipsToBounds = true
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
