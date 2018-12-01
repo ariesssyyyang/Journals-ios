@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class JournalListController: UIViewController {
 
@@ -39,6 +40,8 @@ class JournalListController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     } ()
+
+    let journalVM = JournalViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +86,7 @@ extension JournalListController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return journalVM.numberOfCells
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,6 +95,9 @@ extension JournalListController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.selectionStyle = .none
         cell.setupViews()
+        let journal = journalVM.getCellModel(at: indexPath)
+        cell.postTitleLabel.text = journal.title
+        cell.postImageView.image = journal.image
         return cell
     }
 
