@@ -53,7 +53,7 @@ class JournalListController: UIViewController {
         fakeNavBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         fakeNavBar.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         fakeNavBar.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        fakeNavBar.heightAnchor.constraint(equalTo: self.view.heightAnchor, constant: 1/5)
+        fakeNavBar.heightAnchor.constraint(equalToConstant: 100).isActive = true
 
         view.addSubview(postTableView)
         postTableView.topAnchor.constraint(equalTo: fakeNavBar.bottomAnchor).isActive = true
