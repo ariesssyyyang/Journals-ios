@@ -17,11 +17,17 @@ final class Journal: Object {
 struct JournalModel {
     let title: String
     let content: String
-    let image: UIImage?
+    var image: UIImage?
 
-    init(journalObject: Journal) {
-        self.title = journalObject.title
-        self.content = journalObject.content
-        self.image = UIImage(data: journalObject.imageData)
+    init(from realmObject: Journal) {
+        self.title = realmObject.title
+        self.content = realmObject.content
+        self.image = UIImage(data: realmObject.imageData)
+    }
+
+    init(title: String, content: String, image: UIImage) {
+        self.title = title
+        self.content = content
+        self.image = image
     }
 }

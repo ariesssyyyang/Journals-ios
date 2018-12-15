@@ -10,7 +10,15 @@ import Foundation
 import RealmSwift
 
 class JournalViewModel {
-    private var cellModels: [JournalModel] = [JournalModel]()
+    private var cellModels: [JournalModel] = [JournalModel]() {
+        didSet {
+            self.reloadTableViewClosure?()
+        }
+    }
+
+    let realmService = RealmService()
+
+    var reloadTableViewClosure: (()-> ())?
 
     var numberOfCells: Int {
         return cellModels.count
@@ -20,7 +28,19 @@ class JournalViewModel {
         return cellModels[indexPath.row]
     }
 
-    let realmService = RealmService()
+    func createJournalObject(journal: JournalModel) {
+        realmService.create(title: journal.title, content: journal.content, image: journal.image)
+    }
+
+    func updataJournalObject(journal: JournalModel) {
+        realmService.update(title: journal.title, content: journal.content, image: journal.image)
+    }
+
+    func listJournalObjects() {
+        realmService.delegate = self
+        realmService.retrieveList()
+    }
+    
 }
 
 extension JournalViewModel: RealmServiceDelegate {
