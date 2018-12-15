@@ -66,12 +66,15 @@ class PostViewController: UIViewController {
         return textView
     }()
 
+    let viewModel = JournalViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupLayout()
         setupButtonText()
         setupImageViewEvent()
+        setupButtonsAction()
     }
 
     func setupLayout() {
@@ -114,6 +117,36 @@ class PostViewController: UIViewController {
         case .new:
             submitButton.setTitle("Send", for: .normal)
         }
+    }
+
+    func setupButtonsAction() {
+        dismissButton.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
+        submitButton.addTarget(self, action: #selector(savePost(_:)), for: .touchUpInside)
+    }
+
+    @objc func dismissButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    @objc func savePost(_ sender: UIButton) {
+        guard
+            let title = subjectTextField.text,
+            let content = contentTextView.text,
+            let image = pickPhotoImageView.image
+        else { return }
+
+        let journal = JournalModel(title: title, content: content, image: image)
+
+        switch mode {
+        case .new:
+            viewModel.createJournalObject(journal: journal)
+        case .edit:
+            viewModel.updataJournalObject(journal: journal)
+        }
+
+        self.dismiss(animated: true, completion: { [weak self] in
+            self?.viewModel.listJournalObjects()
+        })
     }
 
     func setupImageViewEvent() {

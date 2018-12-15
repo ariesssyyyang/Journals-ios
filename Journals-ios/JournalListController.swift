@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class JournalListController: UIViewController {
 
@@ -40,14 +41,21 @@ class JournalListController: UIViewController {
         return tableView
     } ()
 
+    let journalVM = JournalViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = .white
         setupLayoutConstraint()
         prepareForTableView()
+        setupButtonAction()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        journalVM.listJournalObjects()
+    }
+    
     func setupLayoutConstraint() {
         view.addSubview(fakeNavBar)
         fakeNavBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -73,6 +81,15 @@ class JournalListController: UIViewController {
         topViewLabel.bottomAnchor.constraint(equalTo: fakeNavBar.bottomAnchor, constant: -5).isActive = true
         topViewLabel.rightAnchor.constraint(equalTo: newPostButton.leftAnchor).isActive = true
     }
+
+    func setupButtonAction() {
+        newPostButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+    }
+
+    @objc func addButtonTapped() {
+        let createPostViewController = PostViewController(mode: .new)
+        self.present(createPostViewController, animated: true, completion: nil)
+    }
 }
 
 extension JournalListController: UITableViewDelegate, UITableViewDataSource {
@@ -80,10 +97,13 @@ extension JournalListController: UITableViewDelegate, UITableViewDataSource {
     func prepareForTableView() {
         postTableView.delegate = self
         postTableView.dataSource = self
+        journalVM.reloadTableViewClosure = {
+            self.postTableView.reloadData()
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return journalVM.numberOfCells
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -92,6 +112,9 @@ extension JournalListController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.selectionStyle = .none
         cell.setupViews()
+        let journal = journalVM.getCellModel(at: indexPath)
+        cell.postTitleLabel.text = journal.title
+        cell.postImageView.image = journal.image
         return cell
     }
 
