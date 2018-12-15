@@ -11,6 +11,8 @@ import UIKit
 class JournalCell: UITableViewCell {
     let postImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.layer.shadowOffset = .zero
         imageView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).cgColor
         imageView.layer.shadowRadius = 8.0
@@ -22,7 +24,6 @@ class JournalCell: UITableViewCell {
 
     let postTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "title"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,7 +61,7 @@ class JournalCell: UITableViewCell {
         postImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5).isActive = true
         postImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 20).isActive = true
         postImageView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20).isActive = true
-        postImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1/2).isActive = true
+        postImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 2/3).isActive = true
     }
 
     func prepareForTitleLabel() {
